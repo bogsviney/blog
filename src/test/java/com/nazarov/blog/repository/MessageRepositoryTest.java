@@ -17,8 +17,8 @@ class MessageRepositoryTest {
     @Test
     public void saveMessage() {
         Message message = Message.builder()
-                .title("DolceKabana")
-                .content("zxc zxc zxc zxc zxc")
+                .title("Fireman")
+                .content("Совы не то, чем они кажутся")
                 .build();
         messageRepository.save(message);
     }
