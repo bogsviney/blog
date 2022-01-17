@@ -18,6 +18,11 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("select u from Message u where u.title = ?1")
     Message findByTitle(String title);
 
+    @Query("select u from Message u where message_id = ?1")
+    Message findById(int id);
+
+
+
     @Modifying
     @Transactional
     @Query(

@@ -19,6 +19,14 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
+    public Message findById(int id){
+       return messageRepository.findById(id);
+    }
+
+    public void findByTitle(String title) {
+        messageRepository.findByTitle(title);
+    }
+
     public void addMessage(Message message) {
         messageRepository.save(message);
     }
@@ -27,8 +35,11 @@ public class MessageService {
         messageRepository.updateContentById(newContent, messageId);
     }
 
-    public void delete(int messageId){
+    public void delete(int messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
+
+
+
 
 }

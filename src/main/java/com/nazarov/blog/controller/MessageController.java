@@ -5,6 +5,7 @@ import com.nazarov.blog.entity.Message;
 import com.nazarov.blog.repository.MessageRepository;
 import com.nazarov.blog.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.*;
 @RequestMapping("api/v1/posts")
 @Slf4j
 public class MessageController {
+
 
     private final MessageRepository messageRepository;
     private final MessageService messageService;
@@ -23,9 +25,14 @@ public class MessageController {
     }
 
     @GetMapping
-    public List<Message> findAll() {
+    private List<Message> findAll() {
         log.info("SHOW ALL MESSAGES: DONE");
         return messageService.findAll();
+    }
+
+    @GetMapping("{id}")
+    public Message findById(@PathVariable int id) {
+        return messageService.findById(id);
     }
 
     @PostMapping
@@ -35,17 +42,29 @@ public class MessageController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("api/v1/posts/{id}")
     public void editMessage(@PathVariable int messageId, @RequestBody String newContent) {
-        messageService.update(newContent,messageId);
+        messageService.update(newContent, messageId);
         log.info("MESSAGE HAS BEEN UPDATED");
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteMessage(@RequestParam(value="id") int messageId){
+    @DeleteMapping("api/v1/posts/{id}")
+    public void deleteMessage(@PathVariable("id") int messageId) {
         messageService.delete(messageId);
         log.info("MESSAGE HAS BEEN DELETED");
     }
+
+
+//    поиск постов с тайтлом :title
+//    @GetMapping("api/v1/posts?title=:title")
+//    public void findByTitle(String title){
+//        messageService.findByTitle(title);
+//        log.info("WE FIND MESSAGE BY TITLE: " + title);
+//    }
+
+
+//    возвращаем все посты отсортированные по тайтлу
+//    @GetMapping("posts?sort=title")
 
 
 }

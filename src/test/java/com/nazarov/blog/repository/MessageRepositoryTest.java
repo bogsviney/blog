@@ -18,7 +18,7 @@ class MessageRepositoryTest {
     public void saveMessage() {
         Message message = Message.builder()
                 .title("Fireman")
-                .content("Совы не то, чем они кажутся")
+                .content("УПС!Моссад следит за тобой!")
                 .build();
         messageRepository.save(message);
     }
@@ -33,6 +33,12 @@ class MessageRepositoryTest {
     public void printMessagesByTitle() {
         Message message = messageRepository.findByTitle("Fireman");
         System.out.println("WE FIND THIS: " + message);
+    }
+
+    @Test
+    public void printMessagesById(){
+        Message message = messageRepository.findById(6);
+        System.out.println("HERE IS THE MESSAGE BY ID = " + message);
     }
 
     @Test
@@ -52,7 +58,7 @@ class MessageRepositoryTest {
     @Test
     public void updateContentById() {
         messageRepository.updateContentById(
-                "AAAAAAAAAAAAAAAAAA",
+                "UPDATED!",
                 6
         );
     }
