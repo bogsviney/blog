@@ -31,8 +31,8 @@ class MessageRepositoryTest {
 
     @Test
     public void printMessagesByTitle() {
-        Message message = messageRepository.findByTitle("Fireman");
-        System.out.println("WE FIND THIS: " + message);
+        List<Message> messages = messageRepository.findByTitle("Fireman");
+        System.out.println("WE FIND THIS: " + messages);
     }
 
     @Test

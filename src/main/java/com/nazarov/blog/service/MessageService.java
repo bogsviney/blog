@@ -23,8 +23,8 @@ public class MessageService {
         return messageRepository.findById(id);
     }
 
-    public void findByTitle(String title) {
-        messageRepository.findByTitle(title);
+    public List<Message> findByTitle(String title) {
+       return messageRepository.findByTitle(title);
     }
 
     public void addMessage(Message message) {

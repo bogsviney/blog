@@ -15,7 +15,6 @@ import java.util.*;
 @Slf4j
 public class MessageController {
 
-
     private final MessageRepository messageRepository;
     private final MessageService messageService;
 
@@ -25,9 +24,15 @@ public class MessageController {
     }
 
     @GetMapping
-    private List<Message> findAll() {
-        log.info("SHOW ALL MESSAGES: DONE");
-        return messageService.findAll();
+    private List<Message> findAll(@RequestParam(value = "title", required = false) String title) {
+
+        if (title != null) {
+            log.info("SHOW BY TITLE: DONE");
+            return messageService.findByTitle(title);
+        } else {
+            log.info("SHOW ALL MESSAGES: DONE");
+            return messageService.findAll();
+        }
     }
 
     @GetMapping("{id}")
@@ -42,7 +47,6 @@ public class MessageController {
         log.info("MESSAGE HAS BEEN ADDED");
     }
 
-
     @PutMapping("{id}")
     public void editMessage(@PathVariable int id, @RequestBody String newContent) {
         messageService.update(newContent, id);
@@ -54,18 +58,5 @@ public class MessageController {
         messageService.deleteByMessageId(id);
         log.info("MESSAGE HAS BEEN DELETED");
     }
-
-
-//    поиск постов с тайтлом :title
-//    @GetMapping("api/v1/posts?title=:title")
-//    public void findByTitle(String title){
-//        messageService.findByTitle(title);
-//        log.info("WE FIND MESSAGE BY TITLE: " + title);
-//    }
-
-
-//    возвращаем все посты отсортированные по тайтлу
-//    @GetMapping("posts?sort=title")
-
 
 }

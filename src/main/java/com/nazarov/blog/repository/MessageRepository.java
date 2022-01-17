@@ -12,11 +12,10 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-
     List<Message> findByTitleContaining(String title);
 
     @Query("select u from Message u where u.title = ?1")
-    Message findByTitle(String title);
+    List<Message> findByTitle(String title);
 
     @Query("select u from Message u where message_id = ?1")
     Message findById(int id);
@@ -37,7 +36,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     )
     int updateContentByTitle(String newContent,String title);
 
-
     @Modifying
     @Transactional
     @Query(
@@ -45,7 +43,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             nativeQuery = true
     )
     void deleteByMessageTitle(String title);
-
 
     @Modifying
     @Transactional
