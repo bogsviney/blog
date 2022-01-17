@@ -51,5 +51,4 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             nativeQuery = true
     )
     void deleteByMessageId(int id);
-
 }

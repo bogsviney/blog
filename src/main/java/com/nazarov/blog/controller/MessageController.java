@@ -24,15 +24,15 @@ public class MessageController {
     }
 
     @GetMapping
-    private List<Message> findAll(@RequestParam(value = "title", required = false) String title) {
+    private List<Message> findAll() {
+        log.info("SHOW ALL MESSAGES: DONE");
+        return messageService.findAll();
+    }
 
-        if (title != null) {
-            log.info("SHOW BY TITLE: DONE");
-            return messageService.findByTitle(title);
-        } else {
-            log.info("SHOW ALL MESSAGES: DONE");
-            return messageService.findAll();
-        }
+    @GetMapping(params = {"title"})
+    private List<Message> findAllByTitle(String title) {
+        log.info("SHOW BY TITLE: DONE");
+        return messageService.findByTitle(title);
     }
 
     @GetMapping("{id}")
