@@ -66,12 +66,11 @@ class MessageRepositoryTest {
     @Test
     public void deletingMessageByTitle(){
         messageRepository.deleteByMessageTitle("DolceKabana");
-
     }
 
     @Test
     public void deleteMessageById(){
-        messageRepository.deleteByMessageId(7);
+        messageRepository.deleteByMessageId(10);
     }
 
 

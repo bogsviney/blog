@@ -19,8 +19,8 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message findById(int id){
-       return messageRepository.findById(id);
+    public Message findById(int id) {
+        return messageRepository.findById(id);
     }
 
     public void findByTitle(String title) {
@@ -31,15 +31,13 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public void update(String newContent, int messageId) {
-        messageRepository.updateContentById(newContent, messageId);
+    public void update(String newContent, int id) {
+        messageRepository.updateContentById(newContent, id);
     }
 
-    public void delete(int messageId) {
+    public void deleteByMessageId(int messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
-
-
 
 
 }

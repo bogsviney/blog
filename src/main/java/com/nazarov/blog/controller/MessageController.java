@@ -32,6 +32,7 @@ public class MessageController {
 
     @GetMapping("{id}")
     public Message findById(@PathVariable int id) {
+        log.info("HERE IS THE MESSAGE WITH ID: " + id);
         return messageService.findById(id);
     }
 
@@ -42,15 +43,15 @@ public class MessageController {
     }
 
 
-    @PutMapping("api/v1/posts/{id}")
-    public void editMessage(@PathVariable int messageId, @RequestBody String newContent) {
-        messageService.update(newContent, messageId);
+    @PutMapping("{id}")
+    public void editMessage(@PathVariable int id, @RequestBody String newContent) {
+        messageService.update(newContent, id);
         log.info("MESSAGE HAS BEEN UPDATED");
     }
 
-    @DeleteMapping("api/v1/posts/{id}")
-    public void deleteMessage(@PathVariable("id") int messageId) {
-        messageService.delete(messageId);
+    @DeleteMapping("{id}")
+    public void deleteMessage(@PathVariable int id) {
+        messageService.deleteByMessageId(id);
         log.info("MESSAGE HAS BEEN DELETED");
     }
 
