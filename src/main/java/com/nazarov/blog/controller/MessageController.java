@@ -1,11 +1,9 @@
 package com.nazarov.blog.controller;
 
-
 import com.nazarov.blog.entity.Message;
 import com.nazarov.blog.repository.MessageRepository;
 import com.nazarov.blog.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -41,6 +39,12 @@ public class MessageController {
         return messageService.findById(id);
     }
 
+    @GetMapping("star")
+    public List<Message> findAllTopMessages() {
+        log.info("HERE IS ALL TOP RATED MESSAGES");
+        return messageService.findAllTopMessages();
+    }
+
     @PostMapping
     public void addMessage(@RequestBody Message message) {
         messageService.addMessage(message);
@@ -53,10 +57,22 @@ public class MessageController {
         log.info("MESSAGE HAS BEEN UPDATED");
     }
 
+    @PutMapping("{id}/star")
+    public void addStar(@PathVariable int id) {
+        log.info("STAR added to post with ID " + id);
+        messageService.addStar(id);
+    }
+
     @DeleteMapping("{id}")
     public void deleteMessage(@PathVariable int id) {
         messageService.deleteByMessageId(id);
         log.info("MESSAGE HAS BEEN DELETED");
+    }
+
+    @DeleteMapping("{id}/star")
+    public void deleteStar(@PathVariable int id) {
+        messageService.deleteStar(id);
+        log.info("STAR has been deleted from the post with ID " + id);
     }
 
 }

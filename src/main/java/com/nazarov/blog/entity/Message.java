@@ -32,4 +32,5 @@ public class Message {
     private int messageId;
     private String title;
     private String content;
+    private boolean star;
 }

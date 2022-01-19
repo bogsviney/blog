@@ -24,7 +24,7 @@ public class MessageService {
     }
 
     public List<Message> findByTitle(String title) {
-       return messageRepository.findByTitle(title);
+        return messageRepository.findByTitle(title);
     }
 
     public void addMessage(Message message) {
@@ -38,4 +38,18 @@ public class MessageService {
     public void deleteByMessageId(int messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
+
+    public List<Message> findAllTopMessages() {
+        return messageRepository.findAllTopMessages();
+    }
+
+    public void addStar(int id) {
+        messageRepository.addStar(id);
+    }
+
+    public void deleteStar(int id) {
+        messageRepository.deleteStar(id);
+    }
+
+
 }
