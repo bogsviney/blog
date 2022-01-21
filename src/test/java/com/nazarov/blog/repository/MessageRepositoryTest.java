@@ -37,8 +37,8 @@ class MessageRepositoryTest {
 
     @Test
     public void printMessagesById(){
-        Message message = messageRepository.findById(6);
-        System.out.println("HERE IS THE MESSAGE BY ID = " + message);
+        messageRepository.findById(6L);
+        System.out.println("HERE IS THE MESSAGE BY ID = " );
     }
 
     @Test
@@ -59,7 +59,7 @@ class MessageRepositoryTest {
     public void updateContentById() {
         messageRepository.updateContentById(
                 "UPDATED!",
-                6
+                6L
         );
     }
 
@@ -70,7 +70,7 @@ class MessageRepositoryTest {
 
     @Test
     public void deleteMessageById(){
-        messageRepository.deleteByMessageId(10);
+        messageRepository.deleteByMessageId(10L);
     }
 
 

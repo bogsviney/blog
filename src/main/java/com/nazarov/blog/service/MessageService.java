@@ -19,8 +19,8 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message findById(int id) {
-        return messageRepository.findById(id);
+    public Message getById(Long id) {
+        return messageRepository.getById(id);
     }
 
     public List<Message> findByTitle(String title) {
@@ -31,11 +31,11 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public void update(String newContent, int id) {
+    public void update(String newContent, Long id) {
         messageRepository.updateContentById(newContent, id);
     }
 
-    public void deleteByMessageId(int messageId) {
+    public void deleteByMessageId(Long messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
 
@@ -43,11 +43,11 @@ public class MessageService {
         return messageRepository.findAllTopMessages();
     }
 
-    public void addStar(int id) {
+    public void addStar(Long id) {
         messageRepository.addStar(id);
     }
 
-    public void deleteStar(int id) {
+    public void deleteStar(Long id) {
         messageRepository.deleteStar(id);
     }
 

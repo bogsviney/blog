@@ -1,12 +1,14 @@
 package com.nazarov.blog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,12 +27,20 @@ public class Message {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy =  GenerationType.SEQUENCE,
+            strategy = GenerationType.SEQUENCE,
             generator = "message_sequence"
     )
 
-    private int messageId;
+    private Long messageId;
     private String title;
     private String content;
     private boolean star;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "message", orphanRemoval = true)
+    private List<Comment> comments;
+
+    @JsonManagedReference
+    public List<Comment> getComments() {
+        return comments;
+    }
 }

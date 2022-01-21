@@ -4,6 +4,7 @@ import com.nazarov.blog.entity.Message;
 import com.nazarov.blog.repository.MessageRepository;
 import com.nazarov.blog.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -13,7 +14,9 @@ import java.util.*;
 @Slf4j
 public class MessageController {
 
+    @Autowired
     private final MessageRepository messageRepository;
+    @Autowired
     private final MessageService messageService;
 
     public MessageController(MessageRepository messageRepository, MessageService messageService) {
@@ -34,9 +37,9 @@ public class MessageController {
     }
 
     @GetMapping("{id}")
-    public Message findById(@PathVariable int id) {
+    public Message getById(@PathVariable Long id) {
         log.info("HERE IS THE MESSAGE WITH ID: " + id);
-        return messageService.findById(id);
+        return messageService.getById(id);
     }
 
     @GetMapping("star")
@@ -52,25 +55,25 @@ public class MessageController {
     }
 
     @PutMapping("{id}")
-    public void editMessage(@PathVariable int id, @RequestBody String newContent) {
+    public void editMessage(@PathVariable Long id, @RequestBody String newContent) {
         messageService.update(newContent, id);
         log.info("MESSAGE HAS BEEN UPDATED");
     }
 
     @PutMapping("{id}/star")
-    public void addStar(@PathVariable int id) {
+    public void addStar(@PathVariable Long id) {
         log.info("STAR added to post with ID " + id);
         messageService.addStar(id);
     }
 
     @DeleteMapping("{id}")
-    public void deleteMessage(@PathVariable int id) {
+    public void deleteMessage(@PathVariable Long id) {
         messageService.deleteByMessageId(id);
         log.info("MESSAGE HAS BEEN DELETED");
     }
 
     @DeleteMapping("{id}/star")
-    public void deleteStar(@PathVariable int id) {
+    public void deleteStar(@PathVariable Long id) {
         messageService.deleteStar(id);
         log.info("STAR has been deleted from the post with ID " + id);
     }
