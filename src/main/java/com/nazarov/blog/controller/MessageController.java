@@ -15,12 +15,9 @@ import java.util.*;
 public class MessageController {
 
     @Autowired
-    private final MessageRepository messageRepository;
-    @Autowired
     private final MessageService messageService;
 
     public MessageController(MessageRepository messageRepository, MessageService messageService) {
-        this.messageRepository = messageRepository;
         this.messageService = messageService;
     }
 
@@ -37,7 +34,7 @@ public class MessageController {
     }
 
     @GetMapping("{id}")
-    public Message getById(@PathVariable Long id) {
+    public Message getById(@PathVariable long id) {
         log.info("HERE IS THE MESSAGE WITH ID: " + id);
         return messageService.getById(id);
     }
@@ -55,25 +52,25 @@ public class MessageController {
     }
 
     @PutMapping("{id}")
-    public void editMessage(@PathVariable Long id, @RequestBody String newContent) {
+    public void editMessage(@PathVariable long id, @RequestBody String newContent) {
         messageService.update(newContent, id);
         log.info("MESSAGE HAS BEEN UPDATED");
     }
 
     @PutMapping("{id}/star")
-    public void addStar(@PathVariable Long id) {
+    public void addStar(@PathVariable long id) {
         log.info("STAR added to post with ID " + id);
         messageService.addStar(id);
     }
 
     @DeleteMapping("{id}")
-    public void deleteMessage(@PathVariable Long id) {
+    public void deleteMessage(@PathVariable long id) {
         messageService.deleteByMessageId(id);
         log.info("MESSAGE HAS BEEN DELETED");
     }
 
     @DeleteMapping("{id}/star")
-    public void deleteStar(@PathVariable Long id) {
+    public void deleteStar(@PathVariable long id) {
         messageService.deleteStar(id);
         log.info("STAR has been deleted from the post with ID " + id);
     }

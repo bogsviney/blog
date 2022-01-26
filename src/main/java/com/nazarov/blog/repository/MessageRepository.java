@@ -18,7 +18,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByTitle(String title);
 
     @Query("select u from Message u where message_id = ?1")
-    Message getById(Long id);
+    Message getById(long id);
 
     @Query("select u from Message u where star = true")
     List<Message> findAllTopMessages();
@@ -29,7 +29,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             value = "update tbl_message set content = ?1 where message_id = ?2",
             nativeQuery = true
     )
-    int updateContentById(String newContent, Long id);
+    int updateContentById(String newContent, long id);
 
     @Modifying
     @Transactional
@@ -53,7 +53,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             value = "delete from tbl_message where message_id = ?1",
             nativeQuery = true
     )
-    void deleteByMessageId(Long id);
+    void deleteByMessageId(long id);
 
     @Modifying
     @Transactional
@@ -61,7 +61,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             value = "update tbl_message set star = true where message_id = ?1",
             nativeQuery = true
     )
-    int addStar(Long id);
+    int addStar(long id);
 
     @Modifying
     @Transactional
@@ -69,7 +69,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             value = "update tbl_message set star = false where message_id = ?1",
             nativeQuery = true
     )
-    int deleteStar(Long id);
-
+    int deleteStar(long id);
 
 }

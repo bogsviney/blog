@@ -19,7 +19,7 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message getById(Long id) {
+    public Message getById(long id) {
         return messageRepository.getById(id);
     }
 
@@ -31,11 +31,11 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public void update(String newContent, Long id) {
+    public void update(String newContent, long id) {
         messageRepository.updateContentById(newContent, id);
     }
 
-    public void deleteByMessageId(Long messageId) {
+    public void deleteByMessageId(long messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
 
@@ -43,11 +43,11 @@ public class MessageService {
         return messageRepository.findAllTopMessages();
     }
 
-    public void addStar(Long id) {
+    public void addStar(long id) {
         messageRepository.addStar(id);
     }
 
-    public void deleteStar(Long id) {
+    public void deleteStar(long id) {
         messageRepository.deleteStar(id);
     }
 

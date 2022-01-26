@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
 
 @SpringBootTest
 class CommentRepositoryTest {
@@ -15,13 +13,18 @@ class CommentRepositoryTest {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    MessageRepository messageRepository;
 
     @Test
-    public void saveComment(){
+    public void saveComment() {
+
         Comment comment = Comment.builder()
+                .creationDate(LocalDateTime.now())
                 .text("!!!THIS IS A NEW COMMENT!!!")
                 .build();
         commentRepository.save(comment);
+
     }
 
 }

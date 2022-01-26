@@ -4,8 +4,8 @@ import com.nazarov.blog.entity.Message;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
+
 
 @SpringBootTest
 class MessageRepositoryTest {
@@ -36,9 +36,9 @@ class MessageRepositoryTest {
     }
 
     @Test
-    public void printMessagesById(){
+    public void printMessagesById() {
         messageRepository.findById(6L);
-        System.out.println("HERE IS THE MESSAGE BY ID = " );
+        System.out.println("HERE IS THE MESSAGE BY ID = ");
     }
 
     @Test
@@ -64,14 +64,12 @@ class MessageRepositoryTest {
     }
 
     @Test
-    public void deletingMessageByTitle(){
+    public void deletingMessageByTitle() {
         messageRepository.deleteByMessageTitle("DolceKabana");
     }
 
     @Test
-    public void deleteMessageById(){
+    public void deleteMessageById() {
         messageRepository.deleteByMessageId(10L);
     }
-
-
 }

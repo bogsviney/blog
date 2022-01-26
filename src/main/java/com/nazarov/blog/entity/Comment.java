@@ -29,7 +29,7 @@ public class Comment {
     )
 
     @Id
-    private Long commentId;
+    private long commentId;
     private String text;
     @CreationTimestamp
     private LocalDateTime creationDate = LocalDateTime.now();

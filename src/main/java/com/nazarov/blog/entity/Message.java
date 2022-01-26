@@ -31,7 +31,7 @@ public class Message {
             generator = "message_sequence"
     )
 
-    private Long messageId;
+    private long messageId;
     private String title;
     private String content;
     private boolean star;
