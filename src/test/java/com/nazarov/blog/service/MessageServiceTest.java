@@ -60,8 +60,6 @@ class MessageServiceTest {
 
     @Test
     void testGetById() {
-        MessageService messageService = new MessageService(messageRepository);
-
         Message message = Message.builder()
                 .messageId(7L)
                 .title("Breaking News")
@@ -81,8 +79,6 @@ class MessageServiceTest {
 
     @Test
     void testFindByTitle() {
-        MessageService messageService = new MessageService(messageRepository);
-
         List<Message> messages = new ArrayList<>();
 
         Message message = Message.builder()
@@ -102,9 +98,34 @@ class MessageServiceTest {
         assertEquals(1L, actual.get(0).getMessageId());
     }
 
+
     @Test
-    void testAddMessage() {
+    void testFindAllTopMessages() {
+        List<Message> messages = new ArrayList<>();
 
+        Message messageTwo = Message.builder()
+                .messageId(2L)
+                .title("Breaking News")
+                .content("Allien UFO landed near Zhytomyr")
+                .star(true)
+                .build();
+        messages.add(messageTwo);
 
+        Message messageThree = Message.builder()
+                .messageId(3L)
+                .title("Cooking")
+                .content("Today i will show you how to make a really excellent lasagna")
+                .star(true)
+                .build();
+        messages.add(messageThree);
+
+        Mockito.when(messageRepository.findAllTopMessages()).thenReturn(messages);
+
+        List<Message> actual = messageRepository.findAllTopMessages();
+
+        assertEquals(2, actual.size());
+        assertEquals("Cooking", actual.get(1).getTitle());
+        assertEquals("Allien UFO landed near Zhytomyr", actual.get(0).getContent());
+        assertSame(messageTwo, actual.get(0));
     }
 }
