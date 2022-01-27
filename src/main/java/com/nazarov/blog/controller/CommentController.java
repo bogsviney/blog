@@ -1,7 +1,7 @@
 package com.nazarov.blog.controller;
 
 import com.nazarov.blog.entity.Comment;
-import com.nazarov.blog.entity.Message;
+
 import com.nazarov.blog.repository.CommentRepository;
 import com.nazarov.blog.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +35,5 @@ public class CommentController {
         log.info("SHOW ALL COMMENTS: DONE");
         return commentService.findAllCommentsByMessageId(id);
     }
-
 
 }

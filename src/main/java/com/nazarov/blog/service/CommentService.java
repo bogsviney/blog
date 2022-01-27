@@ -33,8 +33,10 @@ public class CommentService {
         return comment;
     }
 
-    public List<Comment> findAllCommentsByMessageId(long id) {
-        return messageRepository.findAllCommentsByMessageId(id);
+    public List<Comment> findAllCommentsByMessageId(long messageId) {
+        Message message = messageRepository.getById(messageId);
+        log.info("HERE IS ALL COMMENTS FOR MESSAGE WITH ID: " + messageId);
+        return message.getComments();
     }
 
 

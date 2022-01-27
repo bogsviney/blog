@@ -28,10 +28,4 @@ class CommentRepositoryTest {
         commentRepository.save(comment);
     }
 
-    @Test
-    public void printAllComments() {
-        List<Comment> comments = messageRepository.findAllCommentsByMessageId(29L);
-        System.out.println("ALL MESSAGES HERE: = " + comments);
-    }
-
 }
