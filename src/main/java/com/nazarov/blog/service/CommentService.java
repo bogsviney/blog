@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -23,7 +25,7 @@ public class CommentService {
         this.messageRepository = messageRepository;
     }
 
-    public Comment create(Comment comment, long messageId){
+    public Comment create(Comment comment, long messageId) {
         Message message = messageRepository.getById(messageId);
         comment.setMessage(message);
         commentRepository.save(comment);
@@ -31,6 +33,9 @@ public class CommentService {
         return comment;
     }
 
+    public List<Comment> findAllCommentsByMessageId(long id) {
+        return messageRepository.findAllCommentsByMessageId(id);
+    }
 
 
 }

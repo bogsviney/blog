@@ -1,5 +1,6 @@
 package com.nazarov.blog.repository;
 
+import com.nazarov.blog.entity.Comment;
 import com.nazarov.blog.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
+
+    List<Comment> findAllCommentsByMessageId(long id);
 
     List<Message> findByTitleContaining(String title);
 

@@ -30,11 +30,11 @@ public class Comment {
     @Id
     private long commentId;
     private String text;
-    private long messageId;
+
     @CreationTimestamp
     private LocalDateTime creationDate = LocalDateTime.now();
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
     @JoinColumn(name = "message_id")
     private Message message;
 
