@@ -20,11 +20,11 @@ class CommentRepositoryTest {
     public void saveComment() {
 
         Comment comment = Comment.builder()
-                .creationDate(LocalDateTime.now())
                 .text("!!!THIS IS A NEW COMMENT!!!")
+                .messageId(22L)
+                .creationDate(LocalDateTime.now())
                 .build();
         commentRepository.save(comment);
-
     }
 
 }

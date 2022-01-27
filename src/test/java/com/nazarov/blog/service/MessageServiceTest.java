@@ -76,7 +76,6 @@ class MessageServiceTest {
         assertTrue(actual.isStar());
     }
 
-
     @Test
     void testFindByTitle() {
         List<Message> messages = new ArrayList<>();
@@ -97,7 +96,6 @@ class MessageServiceTest {
         assertEquals("Check-check! This is a test of our blog", actual.get(0).getContent());
         assertEquals(1L, actual.get(0).getMessageId());
     }
-
 
     @Test
     void testFindAllTopMessages() {

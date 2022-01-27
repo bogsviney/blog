@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -31,6 +30,7 @@ public class Comment {
     @Id
     private long commentId;
     private String text;
+    private long messageId;
     @CreationTimestamp
     private LocalDateTime creationDate = LocalDateTime.now();
 

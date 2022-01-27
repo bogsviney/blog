@@ -4,8 +4,8 @@ import com.nazarov.blog.entity.Message;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import java.util.List;
 
+import java.util.List;
 
 @SpringBootTest
 class MessageRepositoryTest {
@@ -13,14 +13,28 @@ class MessageRepositoryTest {
     @Autowired
     private MessageRepository messageRepository;
 
-
     @Test
     public void saveMessage() {
-        Message message = Message.builder()
-                .title("Fireman")
-                .content("УПС!Моссад следит за тобой!")
+        Message messageOne = Message.builder()
+                .title("SCIENCE")
+                .content("British scientists: cannibalism will save the planet")
+                .star(true)
                 .build();
-        messageRepository.save(message);
+        messageRepository.save(messageOne);
+
+        Message messageTwo = Message.builder()
+                .title("NEWS")
+                .content("UFO landed near Zhytomyr")
+                .star(true)
+                .build();
+        messageRepository.save(messageTwo);
+
+        Message messageThree = Message.builder()
+                .title("MONEY")
+                .content("Bitcoin is fake")
+                .star(false)
+                .build();
+        messageRepository.save(messageThree);
     }
 
     @Test
@@ -31,7 +45,7 @@ class MessageRepositoryTest {
 
     @Test
     public void printMessagesByTitle() {
-        List<Message> messages = messageRepository.findByTitle("Fireman");
+        List<Message> messages = messageRepository.findByTitle("NEWS");
         System.out.println("WE FIND THIS: " + messages);
     }
 
@@ -43,33 +57,33 @@ class MessageRepositoryTest {
 
     @Test
     public void printMessageByTitleContaining() {
-        List<Message> messages = messageRepository.findByTitleContaining("Owl");
+        List<Message> messages = messageRepository.findByTitleContaining("SCI");
         System.out.println("LOOOK HERE! ---> " + messages);
     }
 
     @Test
     public void updateContentByTitle() {
         messageRepository.updateContentByTitle(
-                "AAAAAAAAAAAAAAAAAA",
-                "Fireman says "
+                "British scientists: cannibalism will save the planet?",
+                "SCIENCE"
         );
     }
 
     @Test
     public void updateContentById() {
         messageRepository.updateContentById(
-                "UPDATED!",
-                6L
+                "UPDATED CONTENT!",
+                25L
         );
     }
 
     @Test
     public void deletingMessageByTitle() {
-        messageRepository.deleteByMessageTitle("DolceKabana");
+        messageRepository.deleteByMessageTitle("JAVA");
     }
 
     @Test
     public void deleteMessageById() {
-        messageRepository.deleteByMessageId(10L);
+        messageRepository.deleteByMessageId(18L);
     }
 }
