@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -35,5 +36,11 @@ public class CommentController {
         log.info("SHOW ALL COMMENTS: DONE");
         return commentService.findAllCommentsByMessageId(id);
     }
+
+    @GetMapping("{postId}/comment/{commentId}")
+    private Comment findOneCommentById(@PathVariable("postId") long postId, @PathVariable("commentId") long commentId) {
+        return commentService.findOneCommentById(postId, commentId);
+    }
+
 
 }

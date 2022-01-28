@@ -75,4 +75,9 @@ public class MessageController {
         log.info("STAR has been deleted from the post with ID " + id);
     }
 
+    @GetMapping("{id}/full") //WHAT IS THIS?
+    public Message showFullMessage(@PathVariable long id){
+        return messageService.getById(id);
+    }
+
 }
