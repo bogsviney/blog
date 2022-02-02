@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Slf4j
 @Service
 public class CommentService {
@@ -40,9 +39,8 @@ public class CommentService {
     }
 
     public Comment findOneCommentById(long messageId, long commentId) {
-        log.info("HERE IS THE COMMENT WITH ID: " + commentId + "FOR MESSAGE WITH ID: " + messageId);
+        log.info("HERE IS THE COMMENT WITH ID: " + commentId + " FOR MESSAGE WITH ID: " + messageId);
         return commentRepository.getOneCommentToPost(messageId, commentId);
     }
-
 
 }

@@ -1,10 +1,12 @@
 package com.nazarov.blog.repository;
 
 import com.nazarov.blog.entity.Message;
+import com.nazarov.blog.entity.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @SpringBootTest
@@ -12,6 +14,25 @@ class MessageRepositoryTest {
 
     @Autowired
     private MessageRepository messageRepository;
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Test
+    @Transactional
+    public void addTagToMessage() {
+        Tag tagOne = tagRepository.getById(1L);
+        Tag tagTwo = tagRepository.getById(2L);
+
+        Message message = messageRepository.getById(30L);
+
+        message.getTags().add(tagOne);
+        message.getTags().add(tagTwo);
+
+        tagOne.getMessages().add(message);
+        tagTwo.getMessages().add(message);
+
+        messageRepository.save(message);
+    }
 
     @Test
     public void saveMessage() {
