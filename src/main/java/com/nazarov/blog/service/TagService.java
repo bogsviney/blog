@@ -19,11 +19,12 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public void addTag(Tag tag) {
+    public void createTag(Tag tag){
         tagRepository.save(tag);
     }
 
     public void deleteTag(long tagId) {
         tagRepository.deleteById(tagId);
     }
+
 }
