@@ -2,6 +2,7 @@ package com.nazarov.blog.service;
 
 import com.nazarov.blog.entity.Message;
 import com.nazarov.blog.repository.MessageRepository;
+import com.nazarov.blog.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class MessageService {
 
     private final MessageRepository messageRepository;
+
 
     public MessageService(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;

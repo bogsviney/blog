@@ -1,7 +1,9 @@
 package com.nazarov.blog.controller;
 
 import com.nazarov.blog.entity.Message;
+import com.nazarov.blog.entity.Tag;
 import com.nazarov.blog.repository.MessageRepository;
+import com.nazarov.blog.repository.TagRepository;
 import com.nazarov.blog.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,12 @@ public class MessageController {
 
     @Autowired
     private final MessageService messageService;
+    @Autowired
+    private final TagRepository tagRepository;
 
-    public MessageController(MessageRepository messageRepository, MessageService messageService) {
+    public MessageController(MessageRepository messageRepository, MessageService messageService, TagRepository tagRepository) {
         this.messageService = messageService;
+        this.tagRepository = tagRepository;
     }
 
     @GetMapping
@@ -31,6 +36,13 @@ public class MessageController {
     private List<Message> findAllByTitle(String title) {
         log.info("SHOW BY TITLE: DONE");
         return messageService.findByTitle(title);
+    }
+
+    @GetMapping(params = {"tag"})
+    private List<Message> findMessagesByTagName(String tag){
+        Tag targetTag = tagRepository.findByName(tag);
+        log.info("SHOW BY TAG: DONE");
+        return targetTag.getMessages();
     }
 
     @GetMapping("{id}")
@@ -75,9 +87,13 @@ public class MessageController {
         log.info("STAR has been deleted from the post with ID " + id);
     }
 
-    @GetMapping("{id}/full") //WHAT IS THIS?
-    public Message showFullMessage(@PathVariable long id){
-        return messageService.getById(id);
-    }
+//    @GetMapping("{id}/full") //WHAT IS THIS?
+//    public Message showFullMessage(@PathVariable long id){
+//        return messageService.getById(id);
+//    }
+
+
+
+
 
 }

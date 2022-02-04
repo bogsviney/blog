@@ -50,7 +50,7 @@ public class Message {
         return comments;
     }
 
-    public Set<Tag> setTags(){
+    public Set<Tag> getTags(){
         return tags;
     }
 

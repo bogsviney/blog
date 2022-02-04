@@ -23,7 +23,7 @@ class MessageRepositoryTest {
         Tag tagOne = tagRepository.getById(1L);
         Tag tagTwo = tagRepository.getById(2L);
 
-        Message message = messageRepository.getById(30L);
+        Message message = messageRepository.getById(28L);
 
         message.getTags().add(tagOne);
         message.getTags().add(tagTwo);
@@ -34,7 +34,7 @@ class MessageRepositoryTest {
         messageRepository.save(message);
     }
 
-    @Test
+        @Test
     public void saveMessage() {
         Message messageOne = Message.builder()
                 .title("SCIENCE")
