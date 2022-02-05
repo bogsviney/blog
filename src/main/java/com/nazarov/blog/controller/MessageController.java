@@ -91,9 +91,6 @@ public class MessageController {
                     .build();
             tagService.createTag(tagToAdd);
             message.getTags().add(tagToAdd);
-//            tagToAdd.getMessages().add(message);  //при  первом запросе бросает NullPointerException при следующем нормально добавляет... ругается на эту строку
-            //я понимаю что при первом запросе метода тег добавляется в БД (но вылетает ошибка)
-            // а при втором срабатывает условный оператор else и потому тег добавляется к сообщению как уже сущесствующий в базе
             messageRepository.save(message);
         } else {
             message.getTags().add(tagToAdd);
