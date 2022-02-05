@@ -81,24 +81,37 @@ public class MessageController {
         messageService.addStar(id);
     }
 
-    @PutMapping("{id}/{tag}")
-    public void addTagToMessage(@PathVariable long id, @PathVariable String tag) {
-        Tag tagToFind = tagRepository.findByName(tag);
+    @PutMapping("{id}/{tagName}")
+    public void addTagToMessage(@PathVariable long id, @PathVariable String tagName) {
+        Tag tagToAdd = tagRepository.findByName(tagName);
         Message message = messageService.getById(id);
-        if (tagToFind == null) {
-            tagToFind = Tag.builder()
-                    .name(tag)
+        if (tagToAdd == null) {
+            tagToAdd = Tag.builder()
+                    .name(tagName)
                     .build();
-            tagRepository.save(tagToFind);
-            message.getTags().add(tagToFind);
-            tagToFind.getMessages().add(message);    //при  первом запросе бросает NullPointerException при следующем нормально добавляет... ругается на эту строку
+            tagService.createTag(tagToAdd);
+            message.getTags().add(tagToAdd);
+//            tagToAdd.getMessages().add(message);  //при  первом запросе бросает NullPointerException при следующем нормально добавляет... ругается на эту строку
+            //я понимаю что при первом запросе метода тег добавляется в БД (но вылетает ошибка)
+            // а при втором срабатывает условный оператор else и потому тег добавляется к сообщению как уже сущесствующий в базе
             messageRepository.save(message);
         } else {
-            message.getTags().add(tagToFind);
-            tagToFind.getMessages().add(message);
+            message.getTags().add(tagToAdd);
+            tagToAdd.getMessages().add(message);
             messageRepository.save(message);
         }
-        log.info("TAG " + tag + " added to post with ID " + id);
+        log.info("TAG " + tagName + " added to post with ID " + id);
+    }
+
+    @DeleteMapping("{id}/{tagName}")
+    public void deleteTagFromPost(@PathVariable long id, @PathVariable String tagName) {
+        Tag tagToRemove = tagRepository.findByName(tagName);
+        Message message = messageService.getById(id);
+        message.getTags().remove(tagToRemove);
+        tagToRemove.getMessages().remove(message);
+        messageRepository.save(message);
+        tagRepository.save(tagToRemove);
+        log.info("TAG " + tagName + " deleted from post with ID " + id);
     }
 
     @DeleteMapping("{id}")
