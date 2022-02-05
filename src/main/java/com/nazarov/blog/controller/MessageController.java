@@ -5,6 +5,7 @@ import com.nazarov.blog.entity.Tag;
 import com.nazarov.blog.repository.MessageRepository;
 import com.nazarov.blog.repository.TagRepository;
 import com.nazarov.blog.service.MessageService;
+import com.nazarov.blog.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,16 @@ public class MessageController {
     @Autowired
     private final MessageService messageService;
     @Autowired
+    MessageRepository messageRepository;
+    @Autowired
     private final TagRepository tagRepository;
+    @Autowired
+    private final TagService tagService;
 
-    public MessageController(MessageRepository messageRepository, MessageService messageService, TagRepository tagRepository) {
+    public MessageController(MessageRepository messageRepository, MessageService messageService, TagRepository tagRepository, TagService tagService) {
         this.messageService = messageService;
         this.tagRepository = tagRepository;
+        this.tagService = tagService;
     }
 
     @GetMapping
@@ -39,7 +45,7 @@ public class MessageController {
     }
 
     @GetMapping(params = {"tag"})
-    private List<Message> findMessagesByTagName(String tag){
+    private List<Message> findMessagesByTagName(String tag) {
         Tag targetTag = tagRepository.findByName(tag);
         log.info("SHOW BY TAG: DONE");
         return targetTag.getMessages();
@@ -75,6 +81,26 @@ public class MessageController {
         messageService.addStar(id);
     }
 
+    @PutMapping("{id}/{tag}")
+    public void addTagToMessage(@PathVariable long id, @PathVariable String tag) {
+        Tag tagToFind = tagRepository.findByName(tag);
+        Message message = messageService.getById(id);
+        if (tagToFind == null) {
+            tagToFind = Tag.builder()
+                    .name(tag)
+                    .build();
+            tagRepository.save(tagToFind);
+            message.getTags().add(tagToFind);
+            tagToFind.getMessages().add(message);    //при  первом запросе бросает NullPointerException при следующем нормально добавляет... ругается на эту строку
+            messageRepository.save(message);
+        } else {
+            message.getTags().add(tagToFind);
+            tagToFind.getMessages().add(message);
+            messageRepository.save(message);
+        }
+        log.info("TAG " + tag + " added to post with ID " + id);
+    }
+
     @DeleteMapping("{id}")
     public void deleteMessage(@PathVariable long id) {
         messageService.deleteByMessageId(id);
@@ -91,9 +117,6 @@ public class MessageController {
 //    public Message showFullMessage(@PathVariable long id){
 //        return messageService.getById(id);
 //    }
-
-
-
 
 
 }
