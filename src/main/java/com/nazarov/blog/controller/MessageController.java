@@ -47,9 +47,22 @@ public class MessageController {
     @GetMapping(params = {"tag"})
     private List<Message> findMessagesByTagName(String tag) {
         Tag targetTag = tagRepository.findByName(tag);
-        log.info("SHOW BY TAG: DONE");
+        log.info("SHOW BY TAG: " + tag + " DONE");
         return targetTag.getMessages();
     }
+
+    @GetMapping(path = "tags")
+    private List<Message> findMessagesByFewTagsName(@RequestParam Map<String, String> tagNames) {
+        String tagOne = tagNames.get("tag1");
+        String tagTwo = tagNames.get("tag2");
+        Tag targetTagOne = tagRepository.findByName(tagOne);
+        List<Message> result = targetTagOne.getMessages();
+        Tag targetTagTwo = tagRepository.findByName(tagTwo);
+        result.addAll(targetTagTwo.getMessages());
+        log.info("SHOW MESSAGES BY TAGS: " + tagOne + "  and  " + tagTwo + " DONE");
+        return result;
+    }
+
 
     @GetMapping("{id}")
     public Message getById(@PathVariable long id) {
